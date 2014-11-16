@@ -141,6 +141,9 @@ export DESTDIR=%{buildroot}
 make %{?_smp_mflags}
 %{__mv} %{_builddir}/%{name}-%{version}/objs/nginx \
         %{_builddir}/%{name}-%{version}/objs/nginx.debug
+export LUA_LIB=/usr/lib64
+export LUA_INC=/usr/share/lua/5.1
+export DESTDIR=%{buildroot}
 ./configure \
         --prefix=%{_sysconfdir}/nginx \
         --sbin-path=%{_sbindir}/nginx \
@@ -173,6 +176,8 @@ make %{?_smp_mflags}
         --with-mail_ssl_module \
         --with-file-aio \
         --with-ipv6 \
+	 --add-module=%{_builddir}/%{name}-%{version}/ngx_devel_kit-0.2.19 \
+	 --add-module=%{_builddir}/%{name}-%{version}/lua-nginx-module-0.9.13rc1 \
         %{?with_spdy:--with-http_spdy_module} \
         --with-cc-opt="%{optflags} $(pcre-config --cflags)" \
         $*
