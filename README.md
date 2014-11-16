@@ -7,7 +7,7 @@ Do not run this as root!
 
 1. Initialize RPM build environment
 
-    ```mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}```
+    ```mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
     echo "%_topdir %(echo $HOME)/rpmbuild" > ~/.rpmmacros```
 1. Install nginx source RPM
 
