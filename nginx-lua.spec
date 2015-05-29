@@ -3,6 +3,9 @@
 %define nginx_user nginx
 %define nginx_group nginx
 
+%define lua_nginx_version 0.9.15
+%define ngx_devel_kit_version 0.2.19
+
 # distribution specific definitions
 %define use_systemd (0%{?fedora} && 0%{?fedora} >= 18) || (0%{?rhel} && 0%{?rhel} >= 7)
 
@@ -46,7 +49,7 @@ Requires(pre): pwdutils
 
 Summary: High performance web server
 Name: nginx
-Version: 1.6.2
+Version: 1.6.3
 Release: 1%{?dist}.ngx
 Vendor: nginx inc.
 URL: http://nginx.org/
@@ -61,8 +64,8 @@ Source6: nginx.vh.example_ssl.conf
 Source7: nginx.suse.init
 Source8: nginx.service
 Source9: nginx.upgrade.sh
-Source10: https://github.com/simpl/ngx_devel_kit/archive/v0.2.19.tar.gz
-Source11: https://github.com/openresty/lua-nginx-module/archive/v0.9.13rc1.tar.gz
+Source10: https://github.com/simpl/ngx_devel_kit/archive/v%{ngx_devel_kit_version}.tar.gz
+Source11: https://github.com/openresty/lua-nginx-module/archive/v%{lua_nginx_version}.tar.gz
 
 License: 2-clause BSD-like license
 
@@ -93,8 +96,8 @@ Not stripped version of nginx built with the debugging log support.
 %setup -T -D -a 10
 %{__tar} xzvf %{SOURCE11}
 %setup -T -D -a 11
-#%setup -c -a 2 -D -n nginx-%{version}/ngx_devel_kit-0.2.19
-#%setup -c -a 3 -D -n nginx-%{version}/lua-nginx-module-0.9.13rc1
+#%setup -c -a 2 -D -n nginx-%{version}/ngx_devel_kit-%{ngx_devel_kit_version}
+#%setup -c -a 3 -D -n nginx-%{version}/lua-nginx-module-%{lua_nginx_version}
 
 %build
 export LUA_LIB=/usr/lib64
@@ -133,8 +136,8 @@ export DESTDIR=%{buildroot}
         --with-file-aio \
         --with-ipv6 \
         --with-debug \
-	 --add-module=%{_builddir}/%{name}-%{version}/ngx_devel_kit-0.2.19 \
-	 --add-module=%{_builddir}/%{name}-%{version}/lua-nginx-module-0.9.13rc1 \
+        --add-module=%{_builddir}/%{name}-%{version}/ngx_devel_kit-%{ngx_devel_kit_version} \
+        --add-module=%{_builddir}/%{name}-%{version}/lua-nginx-module-%{lua_nginx_version} \
         %{?with_spdy:--with-http_spdy_module} \
         --with-cc-opt="%{optflags} $(pcre-config --cflags)" \
         $*
@@ -176,8 +179,8 @@ export DESTDIR=%{buildroot}
         --with-mail_ssl_module \
         --with-file-aio \
         --with-ipv6 \
-	 --add-module=%{_builddir}/%{name}-%{version}/ngx_devel_kit-0.2.19 \
-	 --add-module=%{_builddir}/%{name}-%{version}/lua-nginx-module-0.9.13rc1 \
+        --add-module=%{_builddir}/%{name}-%{version}/ngx_devel_kit-%{ngx_devel_kit_version} \
+        --add-module=%{_builddir}/%{name}-%{version}/lua-nginx-module-%{lua_nginx_version} \
         %{?with_spdy:--with-http_spdy_module} \
         --with-cc-opt="%{optflags} $(pcre-config --cflags)" \
         $*
@@ -349,6 +352,9 @@ if [ $1 -ge 1 ]; then
 fi
 
 %changelog
+* Fri May 29 2015 Daniel Holth <dholth@gmail.com>
+- 1.6.3
+
 * Tue Sep 16 2014 Sergey Budnevitch <sb@nginx.com>
 - epoch added to the EPEL7/CentOS7 spec to override EPEL one
 - 1.6.2
