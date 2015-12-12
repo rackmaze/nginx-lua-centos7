@@ -23,8 +23,7 @@ Do not run this as root!
 
 1. Install lua-devel, which is not present in standard repos including EPEL for some reason
 
-    ```sudo yum -y install ftp://rpmfind.net/linux/centos/7.0.1406/os/x86_64/Packages/lua-devel-5.1.4-14.el7.x86_64.rpm```
-1. ```rpmbuild -ba nginx-lua.spec```
+    ```sudo yum -y install ftp://rpmfind.net/linux/centos/7/os/x86_64/Packages/lua-devel-5.1.4-14.el7.x86_64.rpm```
 
 
 Tested on RHEL 7.0 (Maipo) x86_64
