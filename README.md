@@ -12,7 +12,7 @@ Do not run this as root!
     ```echo "%_topdir %(echo $HOME)/rpmbuild" > ~/.rpmmacros```
 1. Install nginx source RPM
 
-    ```wget http://nginx.org/packages/rhel/7/SRPMS/nginx-1.6.2-1.el7.ngx.src.rpm```
+    ```wget http://nginx.org/packages/rhel/7/SRPMS/nginx-1.6.3-1.el7.ngx.src.rpm```
 
 1. Download additional sources
 
