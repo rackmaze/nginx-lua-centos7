@@ -10,10 +10,13 @@ Do not run this as root!
     ```mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}```
 
     ```echo "%_topdir %(echo $HOME)/rpmbuild" > ~/.rpmmacros```
+    
+    ```sudo yum install gcc rpm rpm-devel rpm-build-libs rpmdevtools```
+    
 1. Install nginx source RPM
 
-    ```wget http://nginx.org/packages/rhel/7/SRPMS/nginx-1.6.3-1.el7.ngx.src.rpm```
-
+    ```rpm --install http://nginx.org/packages/rhel/7/SRPMS/nginx-1.6.3-1.el7.ngx.src.rpm```
+    
 1. Download additional sources
 
     ```spectool -g -R nginx-lua.spec```
